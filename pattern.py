@@ -8,7 +8,7 @@ if __name__ == '__main__':
     choix = choices(COLOR, weights=COLOR_WEIGHT, k=6)
 
     border = 100
-    nb_point = 10
+    nb_point = 5
     complexity = 50
     df = rando.rand_cords(nb_point,border)
     df = rando.cords_sorter(df)

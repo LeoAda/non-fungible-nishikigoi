@@ -74,12 +74,11 @@ class Drawer:
         """
         paths = ""
         for index, row in df.iterrows():
-            a = 'Z'
             if index == 0:
                 paths += f"m {row['x']} {row['y']} "
             else:
                 xn1, yn1 = self.randomizer.rand_neighborhood(df.iloc[index-1].x,df.iloc[index-1].y,sigma)
-                xn2, yn2 = self.randomizer.rand_neighborhood(df.iloc[index - 1].x, df.iloc[index - 1].y,sigma)
+                xn2, yn2 = self.randomizer.rand_neighborhood(df.iloc[index].x, df.iloc[index].y,sigma)
                 paths += f"C {xn1} {yn1} {xn2} {yn2} {row['x']} {row['y']} "
         xn1, yn1 = self.randomizer.rand_neighborhood(df.iloc[-1].x, df.iloc[-1].y,sigma)
         xn2, yn2 = self.randomizer.rand_neighborhood(df.iloc[0].x, df.iloc[0].y,sigma)

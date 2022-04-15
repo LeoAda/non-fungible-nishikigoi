@@ -65,6 +65,24 @@ class Randomizer:
         return df
 
     def rand_neighborhood(self,x,y,sigma):
-        x1 = randint(x-sigma,x+sigma)
-        y1 = randint(y-sigma,y+sigma)
-        return x1,y1
+        """
+        Find random neighborhood with a radius superior to the point
+        Parameters
+        ----------
+        x : int
+        y : int
+        sigma : int
+            Deviation
+        Returns
+        -------
+        x2,y2
+            Neighborhood
+        """
+        x2 = randint(x-sigma,x+sigma)
+        y2 = randint(y-sigma,y+sigma)
+        print(f"x1:{x} y1:{y} x2:{x2} y2:{y2} r1:{x**2+y**2} r2:{x2**2+y2**2}")
+        while((x**2+y**2)>(x2**2+y2**2)):
+            x2 = randint(x - sigma, x + sigma)
+            y2 = randint(y - sigma, y + sigma)
+            print(f"x1:{x} y1:{y} x2:{x2} y2:{y2} r1:{x ** 2 + y ** 2} r2:{x2 ** 2 + y2 ** 2}")
+        return x2,y2
