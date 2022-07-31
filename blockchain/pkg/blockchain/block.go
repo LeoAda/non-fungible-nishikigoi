@@ -29,10 +29,10 @@ func NewBlockAll(currentBlockchainindex int64, timestamp int64, parentHash strin
 		block = &Block{currentBlockchainindex, timestamp, parentHash, data, ""}
 		block.setHash()
 	} else {
+		block = &Block{currentBlockchainindex, timestamp, parentHash, data, blockHash}
 		if blockHash != block.calculateBlockHash() {
 			panic("blockHash is not correct")
 		}
-		block = &Block{currentBlockchainindex, timestamp, parentHash, data, blockHash}
 	}
 	return block
 }
