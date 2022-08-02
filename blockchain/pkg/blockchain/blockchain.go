@@ -24,6 +24,11 @@ func (bc *Blockchain) AddBlock(data string) {
 	bc.blocks = append(bc.blocks, newBlock)
 }
 
+func (bc *Blockchain) AddBlockObject(b *Block) {
+	bc.index++
+	bc.blocks = append(bc.blocks, b)
+}
+
 // Create a new genesis block.
 func NewGenesisBlock() *Block {
 	return NewBlock(0, "", "Genesis Block")
@@ -31,7 +36,10 @@ func NewGenesisBlock() *Block {
 
 // Create a blockchain.
 func NewBlockchain() *Blockchain {
-	return &Blockchain{[]*Block{NewGenesisBlock()}, 0}
+	return NewBlockchainWithBlock(NewGenesisBlock())
+}
+func NewBlockchainWithBlock(b *Block) *Blockchain {
+	return &Blockchain{[]*Block{b}, 0}
 }
 
 //  the last block.

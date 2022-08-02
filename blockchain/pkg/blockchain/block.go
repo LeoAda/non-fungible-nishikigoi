@@ -67,6 +67,7 @@ func (b *Block) setHash() {
 	b.blockHash = b.calculateBlockHash()
 }
 
+//Calculate hash of a block and return it
 func (b *Block) calculateBlockHash() string {
 	timestamp := strconv.FormatInt(b.timestamp, 10)                      //convert timestamp to string
 	blockNumber := strconv.FormatInt(b.blockNumber, 10)                  //convert blockNumber to string

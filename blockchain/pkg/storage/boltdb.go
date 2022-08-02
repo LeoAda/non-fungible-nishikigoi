@@ -8,24 +8,28 @@ import (
 	"github.com/boltdb/bolt"
 )
 
-var dbInstance *bolt.DB
+const dbName string = "blockchain.db"
 
-func getDb() *bolt.DB {
-	if dbInstance == nil {
+//Implementation of the database interface for BoltDb
+type Boltdb struct {
+	boltDbInstance *bolt.DB
+}
+
+//Getter for the boltdb instance, init it if it's nil
+func (b *Boltdb) getDb() *bolt.DB {
+	if b.boltDbInstance == nil {
 		var err error
-		dbInstance, err = bolt.Open("blockchain.db", 0600, nil)
+		b.boltDbInstance, err = bolt.Open(dbName, 0600, nil)
 		if err != nil {
 			panic("Pb db")
 		}
-		return dbInstance
-	} else {
-		return dbInstance
 	}
-
+	return b.boltDbInstance
 }
 
-func AddBlock(b *blockchain.Block) bool {
-	db := getDb()
+//Add a block to the database, as key : hashBlock and value : serialize value of the block
+func (b *Boltdb) AddBlock(block *blockchain.Block) bool {
+	db := b.getDb()
 	db.Update(func(tx *bolt.Tx) error {
 		var err error
 		bkt := tx.Bucket([]byte("blocksBucket"))
@@ -36,8 +40,8 @@ func AddBlock(b *blockchain.Block) bool {
 			}
 			fmt.Println("create")
 		}
-		serialization, err := SerializeBlock(b)
-		blockHash := b.BlockHash()
+		serialization, err := SerializeBlock(block)
+		blockHash := block.BlockHash()
 		err = bkt.Put([]byte(blockHash), []byte(serialization))
 		err = bkt.Put([]byte("l"), []byte(blockHash))
 		return err
@@ -46,14 +50,15 @@ func AddBlock(b *blockchain.Block) bool {
 	return true
 }
 
-func GetLastBlock() string {
+//Get the hash of the last block added to the db, it's at the key "l"
+func (b *Boltdb) GetLastBlock() string {
 	var blockHash string
-	db := getDb()
+	db := b.getDb()
 	db.View(func(tx *bolt.Tx) error {
 		var err error
 		bkt := tx.Bucket([]byte("blocksBucket"))
 		if bkt == nil {
-			return errors.New("No value in db")
+			return errors.New("no value in db")
 		}
 
 		blockHash = string(bkt.Get([]byte("l")))
@@ -62,14 +67,15 @@ func GetLastBlock() string {
 	return blockHash
 }
 
-func GetBlock(s string) *blockchain.Block {
+//Get block object from a hash string
+func (b *Boltdb) GetBlock(s string) *blockchain.Block {
 	var blockHash string
-	db := getDb()
+	db := b.getDb()
 	db.View(func(tx *bolt.Tx) error {
 		var err error
 		bkt := tx.Bucket([]byte("blocksBucket"))
 		if bkt == nil {
-			return errors.New("No value in db")
+			return errors.New("no value in db")
 		}
 		blockHash = string(bkt.Get([]byte(s)))
 		return err
@@ -78,6 +84,15 @@ func GetBlock(s string) *blockchain.Block {
 	return block
 }
 
-// Key => value
-// hash => serialize
-// l => last hash
+//Get the blockchain from the database
+func (b *Boltdb) GetBlockchain() *blockchain.Blockchain {
+	blockHash := b.GetLastBlock()
+	block := b.GetBlock(blockHash)
+	bc := blockchain.NewBlockchainWithBlock(block)
+	for block.ParentHash() != "" {
+		fmt.Println(block.Data())
+		block = b.GetBlock(block.ParentHash())
+		bc.AddBlockObject(block)
+	}
+	return bc
+}
