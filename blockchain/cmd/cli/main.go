@@ -34,7 +34,7 @@ func main() {
 	fmt.Printf("Last Hash: %s\n", lastblock.BlockHash())
 	fmt.Println()
 	bcc := db.GetBlockchain()
-	lastblockhashbcc := bcc.LastBlock().BlockHash()
+	lastblockhashbcc := bcc.LastBlock()
 	fmt.Println(lastblockhashbcc)
 	for _, block := range bcc.Blocks() {
 		fmt.Printf("index: %x\n", block.BlockNumber())

@@ -84,15 +84,15 @@ func (b *Boltdb) GetBlock(s string) *blockchain.Block {
 	return block
 }
 
-//Get the blockchain from the database
 func (b *Boltdb) GetBlockchain() *blockchain.Blockchain {
 	blockHash := b.GetLastBlock()
 	block := b.GetBlock(blockHash)
-	bc := blockchain.NewBlockchain(block)
+	size := block.BlockNumber()
+	blockList := make([]*blockchain.Block, size+1)
+	blockList[block.BlockNumber()] = block
 	for block.ParentHash() != "" {
-		fmt.Println(block.Data())
 		block = b.GetBlock(block.ParentHash())
-		bc.AddBlockObject(block)
+		blockList[block.BlockNumber()] = block
 	}
-	return bc
+	return blockchain.NewBlockchainList(blockList)
 }

@@ -42,3 +42,6 @@ func NewBlockchain(b *Block) *Blockchain {
 		return &Blockchain{[]*Block{b}, 0}
 	}
 }
+func NewBlockchainList(b []*Block) *Blockchain {
+	return &Blockchain{b, int64(cap(b)) - 1}
+}
