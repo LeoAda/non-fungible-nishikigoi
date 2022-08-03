@@ -9,8 +9,11 @@ import (
 //TODO : add bpm to blockchain
 //TODO : Add pow
 //TODO : Handle the data separator with serilizer and deserializer
+
+//TODO : Make CLI
 //TODO : Handle error globally
-//TODO make iterator for the blockchain to get from a hashvalue
+//TODO : Make documentations
+
 func main() {
 	bc := blockchain.NewBlockchain(nil)
 
