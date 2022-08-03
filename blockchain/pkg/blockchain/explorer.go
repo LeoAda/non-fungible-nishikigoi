@@ -1,21 +1,5 @@
 package blockchain
 
-/*
-func (bi *BlockIterator) hasNext() bool {
-	return bi.currentBlock.ParentHash() != ""
-
-}
-
-func (bi *BlockIterator) getNext() *Block {
-	if u.hasNext() {
-		user := u.users[u.index]
-		u.index++
-		return user
-	}
-	return nil
-}
-*/
-
 func (bc *Blockchain) FindBlock(blockHash string) *Block {
 	for _, n := range bc.blocks {
 		if n.BlockHash() == blockHash {
@@ -32,4 +16,13 @@ func (bc *Blockchain) LastBlock() *Block {
 		}
 	}
 	return nil
+}
+
+func (bc *Blockchain) BlockExist(b *Block) bool {
+	for _, n := range bc.blocks {
+		if n.BlockHash() == b.BlockHash() {
+			return true
+		}
+	}
+	return false
 }
