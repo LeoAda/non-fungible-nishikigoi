@@ -35,14 +35,10 @@ func NewGenesisBlock() *Block {
 }
 
 // Create a blockchain.
-func NewBlockchain() *Blockchain {
-	return NewBlockchainWithBlock(NewGenesisBlock())
-}
-func NewBlockchainWithBlock(b *Block) *Blockchain {
-	return &Blockchain{[]*Block{b}, 0}
-}
-
-//  the last block.
-func (bc *Blockchain) LastBlock() *Block {
-	return bc.blocks[bc.index]
+func NewBlockchain(b *Block) *Blockchain {
+	if b == nil {
+		return &Blockchain{[]*Block{NewGenesisBlock()}, 0}
+	} else {
+		return &Blockchain{[]*Block{b}, 0}
+	}
 }

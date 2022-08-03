@@ -10,8 +10,9 @@ import (
 //TODO : Add pow
 //TODO : Handle the data separator with serilizer and deserializer
 //TODO : Handle error globally
+//TODO make iterator for the blockchain to get from a hashvalue
 func main() {
-	bc := blockchain.NewBlockchain()
+	bc := blockchain.NewBlockchain(nil)
 
 	bc.AddBlock("Send 1 BTC to Ivan")
 	bc.AddBlock("Send 2 more BTC to Ivan")
@@ -33,6 +34,8 @@ func main() {
 	fmt.Printf("Last Hash: %s\n", lastblock.BlockHash())
 	fmt.Println()
 	bcc := db.GetBlockchain()
+	lastblockhashbcc := bcc.LastBlock().BlockHash()
+	fmt.Println(lastblockhashbcc)
 	for _, block := range bcc.Blocks() {
 		fmt.Printf("index: %x\n", block.BlockNumber())
 		fmt.Printf("Prev. hash: %s\n", block.ParentHash())
@@ -41,4 +44,5 @@ func main() {
 		fmt.Println()
 		db.AddBlock(block)
 	}
+
 }
