@@ -2,7 +2,6 @@ package storage
 
 import (
 	"errors"
-	"fmt"
 	"leoada/blockchain/pkg/blockchain"
 
 	"github.com/boltdb/bolt"
@@ -16,29 +15,25 @@ type Boltdb struct {
 }
 
 //Getter for the boltdb instance, init it if it's nil
-func (b *Boltdb) getDb() *bolt.DB {
+func (b *Boltdb) getDb() (*bolt.DB, error) {
+	var err error
 	if b.boltDbInstance == nil {
-		var err error
 		b.boltDbInstance, err = bolt.Open(dbName, 0600, nil)
-		if err != nil {
-			panic("Pb db")
-		}
 	}
-	return b.boltDbInstance
+	return b.boltDbInstance, err
 }
 
 //Add a block to the database, as key : hashBlock and value : serialize value of the block
-func (b *Boltdb) AddBlock(block *blockchain.Block) bool {
-	db := b.getDb()
-	db.Update(func(tx *bolt.Tx) error {
-		var err error
+func (b *Boltdb) AddBlock(block *blockchain.Block) error {
+	var err error
+	db, err := b.getDb()
+	err = db.Update(func(tx *bolt.Tx) error {
 		bkt := tx.Bucket([]byte("blocksBucket"))
 		if bkt == nil {
 			bkt, err = tx.CreateBucket([]byte("blocksBucket"))
 			if err != nil {
-				panic("Pb db")
+				return err
 			}
-			fmt.Println("create")
 		}
 		serialization, err := SerializeBlock(block)
 		blockHash := block.BlockHash()
@@ -47,13 +42,13 @@ func (b *Boltdb) AddBlock(block *blockchain.Block) bool {
 		return err
 	})
 
-	return true
+	return err
 }
 
 //Get the hash of the last block added to the db, it's at the key "l"
 func (b *Boltdb) GetLastBlock() string {
 	var blockHash string
-	db := b.getDb()
+	db, _ := b.getDb()
 	db.View(func(tx *bolt.Tx) error {
 		var err error
 		bkt := tx.Bucket([]byte("blocksBucket"))
@@ -70,8 +65,8 @@ func (b *Boltdb) GetLastBlock() string {
 //Get block object from a hash string
 func (b *Boltdb) GetBlock(s string) *blockchain.Block {
 	var blockHash string
-	db := b.getDb()
-	db.View(func(tx *bolt.Tx) error {
+	db, err := b.getDb()
+	err = db.View(func(tx *bolt.Tx) error {
 		var err error
 		bkt := tx.Bucket([]byte("blocksBucket"))
 		if bkt == nil {
@@ -81,6 +76,9 @@ func (b *Boltdb) GetBlock(s string) *blockchain.Block {
 		return err
 	})
 	block, _ := DeserializeBlock(blockHash)
+	if err != nil {
+		return nil
+	}
 	return block
 }
 
