@@ -9,9 +9,9 @@
 -->
 
 [![Issues][issues-shield]][issues-url]
-<!--[![MIT License][license-shield]][license-url]-->
-[![LinkedIn][linkedin-shield]][linkedin-url]
 [![Go][Go-version]][Golang-url]
+
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
