@@ -59,9 +59,7 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -99,7 +97,7 @@ If you are on windows, you may need to install "make for windows" to properly us
 
 ### Installation
 
-1. Install go [https://go.dev/](https://go.dev/)
+1. Install go [https://go.dev/](https://go.dev/), git, and make (if on windows).
 2. Clone the repo
    ```sh
    git clone https://github.com/LeoAda/non-fungible-nishikigoi.git
@@ -109,7 +107,7 @@ If you are on windows, you may need to install "make for windows" to properly us
    make setup
    ```
    or
-   
+
    ```sh
    go get ./...
    ```
@@ -141,10 +139,10 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Handle error properly
+- [ ] Make CLI
+- [ ] Add POW
+
 
 See the [open issues](https://github.com/LeoAda/non-fungible-nishikigoi/issues) for a full list of proposed features (and known issues).
 
@@ -152,49 +150,22 @@ See the [open issues](https://github.com/LeoAda/non-fungible-nishikigoi/issues) 
 
 
 
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the --- License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link: [https://github.com/LeoAda/non-fungible-nishikigoi](https://github.com/LeoAda/non-fungible-nishikigoi)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
+* [https://jeiwan.net/](https://jeiwan.net/)
+* [https://refactoring.guru/](https://refactoring.guru/)
 * []()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
