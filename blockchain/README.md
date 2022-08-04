@@ -108,7 +108,8 @@ If you are on windows, you may need to install "make for windows" to properly us
    ```sh
    make setup
    ```
-3. Install Go packages (go)
+   or
+   
    ```sh
    go get ./...
    ```
@@ -117,6 +118,7 @@ If you are on windows, you may need to install "make for windows" to properly us
     make run
    ```
    or
+
     ```sh
     go run ./cmd/cli/
     ```
