@@ -8,7 +8,7 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-[![Issues][issues-shield]][issues-url]
+
 [![Go][Go-version]][Golang-url]
 
 [![LinkedIn][linkedin-shield]][linkedin-url]
@@ -18,9 +18,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/LeoAda/non-fungible-nishikigoi">
+  <!--<a href="https://github.com/LeoAda/non-fungible-nishikigoi">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+  </a>-->
 
 <h3 align="center">non-fungible-nishikigoi</h3>
 
@@ -71,9 +71,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
+This project is a non-fungible token system and an image generator.
+This part is the blockchain side.
+It is based written in Go and is inspired by several other blockchain such as ethereum.
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `twitter_handle`, `email_client`, `email`, `project_description`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -90,32 +92,34 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+You need to have a Go compiler and Go runtime installed. [https://go.dev/](https://go.dev/)
+If you are on windows, you may need to install "make for windows" to properly use makefile command.
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Install go [https://go.dev/](https://go.dev/)
 2. Clone the repo
    ```sh
    git clone https://github.com/LeoAda/non-fungible-nishikigoi.git
    ```
-3. Install NPM packages
+3. Install Go packages (make), in /blockchain/ directory
    ```sh
-   npm install
+   make setup
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Install Go packages (go)
+   ```sh
+   go get ./...
    ```
+4. Run the client
+   ```sh
+    make run
+   ```
+   or
+    ```sh
+    go run ./cmd/cli/
+    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
