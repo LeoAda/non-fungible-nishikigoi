@@ -25,7 +25,7 @@
 <h3 align="center">non-fungible-nishikigoi</h3>
 
   <p align="center">
-    project_description
+    <!--project_description-->
     <br />
     <a href="https://github.com/LeoAda/non-fungible-nishikigoi"><strong>Explore the docs »</strong></a>
     <br />
@@ -156,7 +156,7 @@ See the [open issues](https://github.com/LeoAda/non-fungible-nishikigoi/issues) 
 <!-- LICENSE -->
 ## License
 
-Distributed under the --- License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
