@@ -8,17 +8,6 @@
   </p>
 </div>
 
-## Security documentation
+## Client documentation
 
 ### Structure
-The package is made of 1 file :
-* `hash`: contains the methods for hash.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Hash
-The `hash` file contains the hash methods code.
-
-#### Methods
-The hash methods are:
-* `HashString`: calculate sha256 hash of a string.
