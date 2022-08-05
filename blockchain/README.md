@@ -128,7 +128,7 @@ If you are on windows, you may need to install "make for windows" to properly us
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+...
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -142,6 +142,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [ ] Handle error properly
 - [ ] Make CLI
 - [ ] Add POW
+- [ ] ...
 
 
 See the [open issues](https://github.com/LeoAda/non-fungible-nishikigoi/issues) for a full list of proposed features (and known issues).
