@@ -1,6 +1,7 @@
 package blockchain
 
 import (
+	"errors"
 	"leoada/blockchain/pkg/security"
 	"strconv"
 	"strings"
@@ -18,12 +19,12 @@ type Block struct {
 }
 
 // Create a new block with the given data, parent hash and block number. it use NewBlockAll and fix the timestamp.
-func NewBlock(currentBlockchainindex int64, parentHash string, data string) *Block {
+func NewBlock(currentBlockchainindex int64, parentHash string, data string) (*Block, error) {
 	return NewBlockAll(currentBlockchainindex, time.Now().Unix(), parentHash, data, "")
 }
 
 // Create a new block with the given data, parent hash, block number and timestamp.
-func NewBlockAll(currentBlockchainindex int64, timestamp int64, parentHash string, data string, blockHash string) *Block {
+func NewBlockAll(currentBlockchainindex int64, timestamp int64, parentHash string, data string, blockHash string) (*Block, error) {
 	var block *Block
 	if blockHash == "" {
 		block = &Block{currentBlockchainindex, timestamp, parentHash, data, ""}
@@ -31,10 +32,10 @@ func NewBlockAll(currentBlockchainindex int64, timestamp int64, parentHash strin
 	} else {
 		block = &Block{currentBlockchainindex, timestamp, parentHash, data, blockHash}
 		if blockHash != block.calculateBlockHash() {
-			panic("blockHash is not correct")
+			return nil, errors.New("NewBlockAll : Wrong hash")
 		}
 	}
-	return block
+	return block, nil
 }
 
 // Get the number of the block.
@@ -73,6 +74,6 @@ func (b *Block) calculateBlockHash() string {
 	blockNumber := strconv.FormatInt(b.blockNumber, 10)                  //convert blockNumber to string
 	headerList := []string{blockNumber, timestamp, b.parentHash, b.data} //create header list of strings
 	header := strings.Join(headerList, "")                               //join header list to strings
-	hash, _ := security.HashString(header)                               //calculate hash
+	hash := security.HashString(header)                                  //calculate hash
 	return hash
 }

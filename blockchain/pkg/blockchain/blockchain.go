@@ -17,11 +17,15 @@ func (bc *Blockchain) Index() int64 {
 }
 
 // Add a new block.
-func (bc *Blockchain) AddBlock(data string) {
+func (bc *Blockchain) AddBlock(data string) error {
 	prevBlock := bc.blocks[bc.index]
 	bc.index++
-	newBlock := NewBlock(bc.index, prevBlock.blockHash, data)
+	newBlock, err := NewBlock(bc.index, prevBlock.blockHash, data)
+	if err != nil {
+		return err
+	}
 	bc.blocks = append(bc.blocks, newBlock)
+	return nil
 }
 
 func (bc *Blockchain) AddBlockObject(b *Block) {
@@ -31,7 +35,8 @@ func (bc *Blockchain) AddBlockObject(b *Block) {
 
 // Create a new genesis block.
 func NewGenesisBlock() *Block {
-	return NewBlock(0, "", "Genesis Block")
+	block, _ := NewBlock(0, "", "Genesis block")
+	return block
 }
 
 // Create a blockchain.

@@ -139,7 +139,6 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Handle error properly
 - [ ] Make CLI
 - [ ] Add POW
 - [ ] ...

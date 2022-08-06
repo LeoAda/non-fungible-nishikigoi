@@ -36,9 +36,18 @@ func (b *Boltdb) AddBlock(block *blockchain.Block) error {
 			}
 		}
 		serialization, err := SerializeBlock(block)
+		if err != nil {
+			return err
+		}
 		blockHash := block.BlockHash()
 		err = bkt.Put([]byte(blockHash), []byte(serialization))
+		if err != nil {
+			return err
+		}
 		err = bkt.Put([]byte("l"), []byte(blockHash))
+		if err != nil {
+			return err
+		}
 		return err
 	})
 
@@ -63,9 +72,12 @@ func (b *Boltdb) GetLastBlock() string {
 }
 
 //Get block object from a hash string
-func (b *Boltdb) GetBlock(s string) *blockchain.Block {
+func (b *Boltdb) GetBlock(s string) (*blockchain.Block, error) {
 	var blockHash string
 	db, err := b.getDb()
+	if err != nil {
+		return nil, err
+	}
 	err = db.View(func(tx *bolt.Tx) error {
 		var err error
 		bkt := tx.Bucket([]byte("blocksBucket"))
@@ -75,22 +87,31 @@ func (b *Boltdb) GetBlock(s string) *blockchain.Block {
 		blockHash = string(bkt.Get([]byte(s)))
 		return err
 	})
-	block, _ := DeserializeBlock(blockHash)
 	if err != nil {
-		return nil
+		return nil, err
 	}
-	return block
+	block, err := DeserializeBlock(blockHash)
+	if err != nil {
+		return nil, err
+	}
+	return block, nil
 }
 
-func (b *Boltdb) GetBlockchain() *blockchain.Blockchain {
+func (b *Boltdb) GetBlockchain() (*blockchain.Blockchain, error) {
 	blockHash := b.GetLastBlock()
-	block := b.GetBlock(blockHash)
+	block, err := b.GetBlock(blockHash)
+	if err != nil {
+		return nil, err
+	}
 	size := block.BlockNumber()
 	blockList := make([]*blockchain.Block, size+1)
 	blockList[block.BlockNumber()] = block
 	for block.ParentHash() != "" {
-		block = b.GetBlock(block.ParentHash())
+		block, err = b.GetBlock(block.ParentHash())
+		if err != nil {
+			return nil, err
+		}
 		blockList[block.BlockNumber()] = block
 	}
-	return blockchain.NewBlockchainList(blockList)
+	return blockchain.NewBlockchainList(blockList), nil
 }

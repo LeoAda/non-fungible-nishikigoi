@@ -11,7 +11,6 @@ import (
 //TODO : Handle the data separator with serilizer and deserializer
 
 //TODO : Make CLI
-//TODO : Handle error globally
 //TODO : Make documentations
 
 func main() {
@@ -30,13 +29,19 @@ func main() {
 	}
 	lastblockhash := db.GetLastBlock()
 	fmt.Printf("Last block Hash: %s\n", lastblockhash)
-	lastblock := db.GetBlock(lastblockhash)
+	lastblock, err := db.GetBlock(lastblockhash)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Printf("Last index: %x\n", lastblock.BlockNumber())
 	fmt.Printf("last Prev. hash: %s\n", lastblock.ParentHash())
 	fmt.Printf("last Data: %s\n", lastblock.Data())
 	fmt.Printf("Last Hash: %s\n", lastblock.BlockHash())
 	fmt.Println()
-	bcc := db.GetBlockchain()
+	bcc, err := db.GetBlockchain()
+	if err != nil {
+		panic(err)
+	}
 	lastblockhashbcc := bcc.LastBlock()
 	fmt.Println(lastblockhashbcc)
 	for _, block := range bcc.Blocks() {

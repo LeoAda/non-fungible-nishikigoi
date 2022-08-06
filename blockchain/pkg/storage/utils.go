@@ -42,5 +42,9 @@ func DeserializeBlock(s string) (*blockchain.Block, error) {
 	parentHash := list[2]
 	data := list[3]
 	blockHash := list[4]
-	return blockchain.NewBlockAll(blockNumber, timestamp, parentHash, data, blockHash), nil
+	newBlock, err := blockchain.NewBlockAll(blockNumber, timestamp, parentHash, data, blockHash)
+	if err != nil {
+		return nil, err
+	}
+	return newBlock, nil
 }
