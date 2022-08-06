@@ -5,7 +5,7 @@ type Iterator struct {
 	bc           *Blockchain
 }
 
-func (bc *Blockchain) createIterator() *Iterator {
+func (bc *Blockchain) Iterator() *Iterator {
 	return &Iterator{
 		currentBlock: bc.LastBlock(),
 		bc:           bc,
